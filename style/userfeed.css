@@ -1,0 +1,201 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.tagMain{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    
+    
+}
+
+.tagDivContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 120%;
+    border-bottom: 2px solid black;
+    padding: 10px;
+    gap: 20px;
+}
+.tagDivLogo{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    width: 500px;
+    justify-content: center;
+}
+
+.tagDivLogoCor{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgb(140, 12, 190);
+    
+}
+
+.tagDivButtons{
+   
+    display: flex;
+    align-items: center;
+    width: 360px;
+    justify-content: center;
+}
+
+.tagDivButtons > button{
+    width: 142px;
+    height: 48px;
+
+}
+
+.tagDivContainer2{
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgb(216, 216, 216);
+    
+    /* margin-left: 120px;
+    margin-right: 120px; */
+    
+
+
+}
+
+.tagDivNome{
+    width: 50%;
+}
+
+.tagDivDentro{
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+
+.tagDivColegas{
+    border: 1px solid rgb(216, 216, 216);
+
+    width: 100%;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 35px;
+    font-weight: 700;
+    margin-top: 30px;
+}
+
+.tagDivUl{
+    border: 1px solid rgb(216, 216, 216);
+
+    width: 100%;
+    height: 500px;
+
+}
+
+.tagH1C{
+    width: 100%;
+    height: 40px;
+    background-color: blue;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.tagUlC{
+    width: 98%;
+    height: 400px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tagLiC{
+    width: 120px;
+    height: 80px;
+    border: 1px solid rgb(216, 216, 216);
+
+
+}
+
+
+
+
+
+
+
+
+.modal-background{
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.modal-container{
+    border-radius: 10px;
+    width: 50%;
+    height: 50%;
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    position: fixed;
+    top: 50px;
+    background-color: white;
+    
+    border: 1px solid red;
+}
+
+.modal-clone{
+    padding: 5px 0 5px 0;
+    border-radius: 10px;
+    
+}    
+
+   
+
+.inputTitulo{
+    width: 90%;
+    height: 40px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.inputBody{
+    width: 90%;
+    height: 150px;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+p{
+    color: black;
+    font-weight: 400;
+    font-size: medium;
+} 
+
+.modal-close{
+    width: 30px;
+    height: 30px;
+}
+
+.tituloModal{
+    margin-bottom: 30px;
+}

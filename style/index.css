@@ -1,0 +1,177 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.tagMain{
+    width: 100%;
+    
+    
+}
+
+.tagDivContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* width: 100%; */
+    height: 120%;
+    border-bottom: 2px solid black;
+    padding: 10px;
+    gap: 20px;
+}
+.tagDivLogo{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.tagDivLogoCor{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: rgb(140, 12, 190);
+}
+
+.tagDivButtons{
+    width: 100%;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.tagDivButtons > button{
+    width: 142px;
+    height: 48px;
+
+}
+
+.tagDivSelect{
+    background-color: blue;
+    width: 100%;
+    height: 50px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
+    margin-bottom: 30px;
+}
+
+.tagImg{
+    display: none;
+}
+
+.tagDivMobile{
+
+background-color: rgb(241, 241, 239);
+
+
+}
+
+.tagUl{
+    display: flex;
+    gap: 10px;
+
+    list-style: none;
+    overflow-x: scroll;
+    height: 230px;
+    width: 100%;
+    margin: 10px;
+    background-color: rgb(241, 241, 239);
+    
+
+}
+
+li{
+    width: 100%;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: white;
+    border-bottom: 2px solid rgb(187, 184, 184);
+}
+
+.divPeSetor{
+    width: 250px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: space-around;
+
+}
+
+.divSetor{
+    border: 1px solid black;
+    border-radius: 20px;
+    width: 130px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+@media (min-width: 700px){
+
+
+    .tagDivContainer{
+        display: flex;
+        flex-direction: inherit;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .tagDivLogo{
+        width: 300px;
+    }
+
+    .tagDivButtons{
+        width: 300px;
+    }
+
+    .tagImg{
+        display: flex;
+        width: 500px;
+        height: 700px;
+    }
+
+
+    .tagDivContainerBody{
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        
+    }
+
+    .tagDivMobile{
+        width: 500px;
+        height: 700px;
+    }
+
+    .tagUl{
+        flex-direction: column;
+        height: 620px;
+    }
+
+    .tagMain{
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+
+
+
+
+
+
+
+
+
+
+}

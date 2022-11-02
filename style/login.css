@@ -1,0 +1,67 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.tagMain{
+    width: 100%;
+    
+    
+}
+
+.tagDivContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 120%;
+    border-bottom: 2px solid black;
+    padding: 20px;
+    gap: 20px;
+}
+.tagDivLogo{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.tagDivLogoCor{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: rgb(140, 12, 190);
+}
+
+.tagDivButtons{
+    width: 100%;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.tagDivButtons > button{
+    width: 142px;
+    height: 48px;
+
+}
+
+
+
+.tagPou{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+
+.tagForm{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+
+}
