@@ -146,8 +146,8 @@ async function requisicao(user){
 
             localStorage.setItem(`token Login`, response.token)
 
-            window.location.assign("./userfeed.html")
-
+            //window.location.assign("./userfeed.html")
+            requisicaoValidar(response.token)
           }
 
           
@@ -167,8 +167,10 @@ async function requisicao(user){
           console.log(error)
       })
       return resposta
-  }  
+}  
 
+// const tokenLSParaValidar = localStorage.getItem(`token Login`)
+// console.log(tokenLSParaValidar)
 
   //http://localhost:6278/auth/validate_user
 
@@ -183,11 +185,17 @@ const resposta =  await fetch(`http://localhost:6278/auth/validate_user`,{
     .then((response)=> {
             
         console.log(response)
-        
+        if(response.is_admin === false){
+            console.log(response.is_admin)
+            window.location.assign("./userfeed.html")
+        }else if(response.is_admin === true){
+            console.log(response.is_admin)
+            window.location.assign("./adminfeed.html")
+        }
     
         if(response.error){
 
-            alert(response.error)
+            console.log(response.error)
 
         }
     })
@@ -196,4 +204,4 @@ const resposta =  await fetch(`http://localhost:6278/auth/validate_user`,{
     })
     return resposta
 }  
-requisicaoValidar()
+//requisicaoValidar(tokenLSParaValidar)

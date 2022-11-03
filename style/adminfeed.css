@@ -126,3 +126,83 @@ body{
     justify-content: center;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.modal-background{
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.modal-container{
+    border-radius: 10px;
+    width: 50%;
+    height: 50%;
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    position: fixed;
+    top: 50px;
+    background-color: white;
+    
+    border: 1px solid red;
+}
+
+.modal-clone{
+    padding: 5px 0 5px 0;
+    border-radius: 10px;
+    
+}    
+
+   
+
+.inputTitulo{
+    width: 90%;
+    height: 40px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.inputBody{
+    width: 90%;
+    height: 150px;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+p{
+    color: black;
+    font-weight: 400;
+    font-size: medium;
+} 
+
+.modal-close{
+    width: 30px;
+    height: 30px;
+}
+
+.tituloModal{
+    margin-bottom: 30px;
+}

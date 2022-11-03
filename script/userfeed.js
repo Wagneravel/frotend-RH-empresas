@@ -129,7 +129,7 @@ requisicao()
 
 function renderDivColegas(arr){
 
-    // if(arr == []){
+    if(arr.length === 0){
 
         const tagDivColegas = document.createElement("div")
         tagDivColegas.className = `tagDivColegas`
@@ -138,15 +138,20 @@ function renderDivColegas(arr){
 
         tagMain.append(tagDivColegas)
 
-    //}
-    if(arr !== null){
+    }else {
 
         const tagDivUl = document.createElement("div")
 // tem que criar mais um h1 para o nome da empresa e colocar os 2 h1 dentro da div azul
+
+        const divH1eH12 = document.createElement("div")
+        divH1eH12.className = `divH1eH12`
+        const tagH12 = document.createElement("h1")
+        tagH12.className = `tagH12`
+        tagH1.innerText = arr.description
         const tagH1 = document.createElement("h1")
         tagH1.className = `tagH1C`
         tagH1.innerText = arr.description
-
+        divH1eH12.append(tagH1, tagH12)
         const tagUl = document.createElement("ul")
         tagUl.className = `tagUlC`
 
@@ -163,7 +168,7 @@ function renderDivColegas(arr){
 
             tagLi.append(tagNome, tagNivel)
             tagUl.appendChild(tagLi)
-            tagDivUl.append(tagH1, tagUl)
+            tagDivUl.append(divH1eH12, tagUl)
             tagMain.append(tagDivUl)
         });
     }
@@ -219,7 +224,7 @@ function openModal(children){
 
         const {className} = (e.target)
         console.log(className)
-
+        
         if(className === "modal-background" || className === "modal-close"){
 
             backgroudContainer.remove()
@@ -266,9 +271,10 @@ function conteudoModalEditar(){
         
         console.log(objEditar)
         requisicaoEditar(objEditar)
-      
+        window.location.reload()
+        
     })
-
+    
 
 
     nomeModal.innerText = "Editar Perfil"

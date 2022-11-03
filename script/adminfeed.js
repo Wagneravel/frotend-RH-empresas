@@ -1,6 +1,10 @@
+const body = document.querySelector("body")
 const tagMain = document.querySelector(".tagMain")
 const token = localStorage.getItem("token Login")
 console.log(token)
+
+
+
 function renderHeaderPage(){
     const tagDivContainer = document.createElement("div")
     tagDivContainer.className = `tagDivContainer`
@@ -36,14 +40,12 @@ function renderHeaderPage(){
     tagDivButtons.append(tagButtonLogin)
     tagDivContainer.append(tagDivLogo, tagDivButtons)
 
-    tagMain.appendChild(tagDivContainer)
+    body.prepend(tagDivContainer)
 }
 renderHeaderPage()
 
 
 function renderHeaderDepartamento(arr){
-
-    
 
     const divHeaderDepart = document.createElement("div")
     divHeaderDepart.className = `divHeaderDepart`
@@ -55,6 +57,19 @@ function renderHeaderDepartamento(arr){
     const divSelectDepart = document.createElement("select")
     divSelectDepart.className = `divSelectDepart`
 
+    divSelectDepart.addEventListener("change", (e) => {
+        e.preventDefault()
+        // e.target.value
+        console.log(e.target.value)
+        console.log(divSelectDepart.selectedIndex)
+
+        
+
+       console.log(divSelectDepart.options[divSelectDepart.selectedIndex].id)
+       requisicaoDepartamentos(divSelectDepart.options[divSelectDepart.selectedIndex].id)
+        
+    })
+
     const option = document.createElement("option")
     option.innerText = `Todas as empresas`
     divSelectDepart.append(option)
@@ -63,6 +78,9 @@ function renderHeaderDepartamento(arr){
         const tagOpt = document.createElement("option")
         tagOpt.className = `tagOpt`
         tagOpt.innerText = element.name
+        tagOpt.id = element.uuid
+
+        console.log(tagOpt.id)
         
         divSelectDepart.appendChild(tagOpt)
     })
@@ -72,26 +90,38 @@ function renderHeaderDepartamento(arr){
     ButtonDepart.type = `button`
     ButtonDepart.innerText = `Criar departamento`
 
-    divHeaderDepart.append(divH1Depart, divSelectDepart, ButtonDepart)
-    tagMain.appendChild(divHeaderDepart)
 
+
+    ButtonDepart.addEventListener("click", (e) => {
+
+        e.preventDefault()
+
+        console.log(`Abrir modal editar`)
+
+        conteudoModalCriar(arr)
+
+
+
+
+    })
+
+    divHeaderDepart.append(divH1Depart, divSelectDepart, ButtonDepart)
+    tagMain.prepend(divHeaderDepart)
 
 }
 
+const divDepartos = document.createElement("div")
+divDepartos.className = `divDepartos`
 
+const tagUlDepartos = document.createElement("ul")
+tagUlDepartos.className = `tagUlDepartos`
 
+divDepartos.appendChild(tagUlDepartos)
 
 function renderDepartamentos(arr){
 
+    tagUlDepartos.innerHTML = ``
 
-    const divDepartos = document.createElement("div")
-    divDepartos.className = `divDepartos`
-
-
-    const tagUlDepartos = document.createElement("ul")
-    tagUlDepartos.className = `tagUlDepartos`
-
-    divDepartos.appendChild(tagUlDepartos)
 
     arr.forEach(element => {
         
@@ -124,7 +154,7 @@ function renderDepartamentos(arr){
 
 
     divDepartos.appendChild(tagUlDepartos)
-    tagMain.appendChild(divDepartos)
+    // tagMain.appendChild(divDepartos)
 }
 
 
@@ -141,6 +171,7 @@ async function requisicaoEmpresas(){
               
           console.log(response)
           renderHeaderDepartamento(response)
+
         
           if(response.error){
   
@@ -162,11 +193,11 @@ requisicaoEmpresas()
 
 
 
-async function requisicaoDepartamentos(admin){
-    const resposta =  await fetch(`http://localhost:6278/departments`,{
+async function requisicaoDepartamentos(idEmpresa){
+    const resposta =  await fetch(`http://localhost:6278/departments/${idEmpresa}`,{
           
           method:"GET",
-          headers:{"Authorization" : `Bearer ${admin}`},
+          headers:{"Authorization" : `Bearer ${token}`},
       }).then((response)=>response.json() )
       
       .then((response)=> {
@@ -185,13 +216,19 @@ async function requisicaoDepartamentos(admin){
       })
       return resposta
 }  
-requisicaoDepartamentos("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiMjczOTBhZGYtMzhhNy00Y2VlLTg5ZWQtYzJiYWVmMzY4YmZmIiwiaXNfYWRtaW4iOnRydWUsImlhdCI6MTY2NjkxNzQyMywiZXhwIjoxNjY3NzgxNDIzLCJzdWIiOiJbb2JqZWN0IFVuZGVmaW5lZF0ifQ.1VEwu65jMWZXistVAMZrjTjkJ1KzsADjj08j-VPDlOA")
+
+
+
+
+
+
+
+
 
 
 
 
 function renderFuncionarios(arr){
-
 
     const divFuncionarios= document.createElement("div")
     divFuncionarios.className = `divFuncionarios`
@@ -210,7 +247,7 @@ function renderFuncionarios(arr){
         
         const tagLiFuncionarios = document.createElement("li")
         tagLiFuncionarios.className = `tagLiFuncionarios`
-
+        tagLiFuncionarios.id = element.uuid
 
 
         const tagNomeEmpresa = document.createElement("p")
@@ -227,9 +264,35 @@ function renderFuncionarios(arr){
         const tagB2 = document.createElement("button")
         
 
-        tagB1.innerText = `B1`
-        tagB2.innerText = `B2`
-        
+        tagB1.innerText = ` Editar`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        tagB2.innerText = `Remover`
+
+        tagB2.addEventListener("click", (e)=>{
+
+            e.preventDefault()
+
+            console.log("Modal deletar")
+
+            // proxima função precisa de um parametro que será o id do funcionário
+            conteudoModalDeletarFuncionario(tagLiFuncionarios.id)
+
+        })
 
         tagDB.append(tagB1, tagB2)
         tagLiFuncionarios.append(tagNomeEmpresa, tagNomeDepart, tagNomeDescri, tagDB)
@@ -238,18 +301,19 @@ function renderFuncionarios(arr){
 
 
     divFuncionarios.appendChild(tagUlFuncionarios)
-    tagMain.appendChild(divFuncionarios)
+    tagMain.append(divDepartos, divFuncionarios)
+    
 }
 
 //http://localhost:6278/users
 
 
 
-async function requisicaoFuncionarios(admin){
+async function requisicaoFuncionarios(){
     const resposta =  await fetch(`http://localhost:6278/users`,{
           
           method:"GET",
-          headers:{"Authorization" : `Bearer ${admin}`},
+          headers:{"Authorization" : `Bearer ${token}`},
       }).then((response)=>response.json() )
       
       .then((response)=> {
@@ -268,4 +332,222 @@ async function requisicaoFuncionarios(admin){
       })
       return resposta
 }  
-requisicaoFuncionarios("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiMjczOTBhZGYtMzhhNy00Y2VlLTg5ZWQtYzJiYWVmMzY4YmZmIiwiaXNfYWRtaW4iOnRydWUsImlhdCI6MTY2NjkxNzQyMywiZXhwIjoxNjY3NzgxNDIzLCJzdWIiOiJbb2JqZWN0IFVuZGVmaW5lZF0ifQ.1VEwu65jMWZXistVAMZrjTjkJ1KzsADjj08j-VPDlOA")
+requisicaoFuncionarios()
+
+
+
+
+
+
+
+//modal
+
+const BodyModal = document.querySelector("body")
+
+function openModal(children){
+
+    const backgroudContainer = document.createElement("section")
+    const mainContainer = document.createElement("section")
+    const closeModalButton = document.createElement("button")
+
+    backgroudContainer.classList.add("modal-background")
+    mainContainer.classList.add("modal-container")
+    closeModalButton.classList.add("modal-close")
+
+    closeModalButton.innerText = "X"
+
+    closeModalButton.addEventListener("click", (e) =>{
+
+        const {className} = (e.target)
+        console.log(className)
+        
+        if(className === "modal-background" || className === "modal-close"){
+
+            backgroudContainer.remove()
+        }
+    })
+
+    mainContainer.appendChild(closeModalButton)
+    mainContainer.append(children)
+    backgroudContainer.appendChild(mainContainer)
+    BodyModal.appendChild(backgroudContainer)
+}
+
+
+
+
+
+
+
+
+let objEditar = []
+function conteudoModalCriar(arr){
+
+    const div = document.createElement("div")
+    const nomeModal = document.createElement("h2")
+    
+    
+    const inputNome = document.createElement("input")
+
+    const inputcompany_uuid = document.createElement("select")
+    inputcompany_uuid.className = `inputcompany_uuid`
+
+    const inputdescription = document.createElement("input")
+
+    inputNome.placeholder = `Nome`
+    inputdescription.placeholder = `description`
+
+
+    const option = document.createElement("option")
+    option.innerText = `Todas as empresas`
+    inputcompany_uuid.append(option)
+    arr.forEach((element)=>{
+
+        const tagOpt = document.createElement("option")
+        tagOpt.className = `tagOpt`
+        tagOpt.innerText = element.name
+        tagOpt.id = element.uuid
+
+        console.log(tagOpt.id)
+
+
+        inputcompany_uuid.appendChild(tagOpt)
+    })
+
+
+
+    inputcompany_uuid.addEventListener("change", (e) => {
+        e.preventDefault()
+        // e.target.value
+        console.log(e.target.value)
+        console.log(inputcompany_uuid.selectedIndex)
+
+        
+
+       console.log(inputcompany_uuid.options[inputcompany_uuid.selectedIndex].id)
+
+
+
+    })
+
+
+
+
+    const tagButton = document.createElement("button")
+    tagButton.type = "button"
+    tagButton.innerText = "Salvar Alterações"
+
+    tagButton.addEventListener("click", (e) =>{
+
+        e.preventDefault()
+        console.log("click Editar")    
+
+        objEditar = {
+            "name": inputNome.value,
+            "description": inputdescription.value,
+            "company_uuid": inputcompany_uuid.options[inputcompany_uuid.selectedIndex].id
+
+        }
+        
+        console.log(objEditar)
+        requisicaoCriarDepart(objEditar)
+        window.location.reload()
+        
+    })
+    
+
+
+    nomeModal.innerText = "Editar Perfil"
+    
+
+   
+    div.append(nomeModal, inputNome, inputdescription, inputcompany_uuid, tagButton)
+    
+    openModal(div)
+}
+
+async function requisicaoCriarDepart(user){
+    const resposta =  await fetch(`http://localhost:6278/departments`,{          
+          method:"POST",
+          headers:{
+            "Content-Type": "application/json",
+            "Authorization" : `Bearer ${token}`
+        },
+          body: JSON.stringify(user)
+      }).then((response)=>response.json() )
+      
+      .then((response)=> {
+              
+          console.log(response)
+        //   renderDadosLogado(response)
+          
+      })
+      .catch(error =>{
+          console.log(error)
+      })
+      return resposta
+} 
+
+
+
+
+
+function conteudoModalDeletarFuncionario(idUser){
+
+
+    const DivConteudoModalDeletar = document.createElement("div")
+
+    const tagH1DeletarFuncionario = document.createElement("h1")
+
+    tagH1DeletarFuncionario.innerText = `Tem certeza que deseja deletar o usuário?`
+
+
+    const bottonDeletarFuncionario = document.createElement("botton")
+    bottonDeletarFuncionario.className = `bottonDeletarFuncionario`
+    bottonDeletarFuncionario.type = `button`
+    bottonDeletarFuncionario.innerText = `Deletar`
+    
+    bottonDeletarFuncionario.addEventListener("click", (e) =>{
+
+        e.preventDefault()
+
+        console.log("Deletando")
+
+        requisicaoDeletarFuncionarios(idUser)
+
+        window.location.reload()
+
+    })
+
+    DivConteudoModalDeletar.append(tagH1DeletarFuncionario, bottonDeletarFuncionario)
+
+    openModal(DivConteudoModalDeletar)
+
+}
+
+
+
+async function requisicaoDeletarFuncionarios(idUser){
+    const resposta =  await fetch(`http://localhost:6278/admin/delete_user/${idUser}`,{
+          
+          method:"DELETE",
+          headers:{"Authorization" : `Bearer ${token}`},
+      }).then((response)=>response.json() )
+      
+      .then((response)=> {
+              
+          console.log(response)
+          alert(`usuário deletado com sucesso`)
+          
+        
+          if(response.error){
+  
+              alert(response.error)
+  
+          }
+      })
+      .catch(error =>{
+          console.log(error)
+      })
+      return resposta
+} 
