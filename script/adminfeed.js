@@ -80,7 +80,7 @@ function renderHeaderDepartamento(arr){
         tagOpt.innerText = element.name
         tagOpt.id = element.uuid
 
-        console.log(tagOpt.id)
+       // console.log(tagOpt.id)
         
         divSelectDepart.appendChild(tagOpt)
     })
@@ -266,19 +266,14 @@ function renderFuncionarios(arr){
 
         tagB1.innerText = ` Editar`
 
+        tagB1.addEventListener("click", (e) => {
+
+
+            conteudoModalEditarFuncionario(element.uuid)
 
 
 
-
-
-
-
-
-
-
-
-
-
+        })
 
 
         tagB2.innerText = `Remover`
@@ -457,7 +452,7 @@ function conteudoModalCriar(arr){
     
 
 
-    nomeModal.innerText = "Editar Perfil"
+    nomeModal.innerText = "Criar Departamento"
     
 
    
@@ -545,6 +540,139 @@ async function requisicaoDeletarFuncionarios(idUser){
               alert(response.error)
   
           }
+      })
+      .catch(error =>{
+          console.log(error)
+      })
+      return resposta
+} 
+
+
+
+
+function conteudoModalEditarFuncionario(idUser){
+
+
+    const DivConteudoModalEditar = document.createElement("div")
+
+    const tagH1DeletarFuncionario = document.createElement("h1")
+
+    tagH1DeletarFuncionario.innerText = `Editar Funcionário`
+
+    const divSelectModalidadeDeTrabalho = document.createElement("select")
+
+    divSelectModalidadeDeTrabalho.addEventListener("change", (e) => {
+        
+        e.preventDefault()
+
+        console.log(divSelectModalidadeDeTrabalho.value)
+        
+
+    })
+
+    const optionModalidadeDeTrabalho = document.createElement("option")
+    const optionModalidadeDeTrabalhoCasa = document.createElement("option")
+    const optionModalidadeDeTrabalhoPresencial = document.createElement("option")
+    const optionModalidadeDeTrabalhohibrido = document.createElement("option")
+    optionModalidadeDeTrabalho.innerText = `Selecionar modalidade de trabalho`
+    optionModalidadeDeTrabalhoCasa.innerText = `home office`
+    optionModalidadeDeTrabalhoPresencial.innerText = `presencial`
+    optionModalidadeDeTrabalhohibrido.innerText = `hibrido`
+
+    divSelectModalidadeDeTrabalho.append(optionModalidadeDeTrabalho, optionModalidadeDeTrabalhoCasa, optionModalidadeDeTrabalhoPresencial,optionModalidadeDeTrabalhohibrido)
+
+
+
+    const divSelectNivel = document.createElement("select")
+
+    divSelectNivel.addEventListener("change", (e) => {
+        
+        e.preventDefault()
+
+        console.log(divSelectNivel.value)
+        
+
+    })
+
+
+    const optionNivelProf = document.createElement("option")
+    optionNivelProf.innerText = `Selecionar nível Profissional`
+    const optionEstagio = document.createElement("option")
+    optionEstagio.innerText = `estágio`
+    const optionBasico = document.createElement("option")
+    optionBasico.innerText = `júnior`
+    const optionMedio = document.createElement("option")
+    optionMedio.innerText = `pleno`
+    const optionAvancado = document.createElement("option")
+    optionAvancado.innerText = `sênior`
+
+    divSelectNivel.append(optionNivelProf, optionEstagio, optionBasico, optionMedio, optionAvancado)
+
+
+    const bottonDeletarEditar = document.createElement("botton")
+    bottonDeletarEditar.className = `bottonDeletarEditar`
+    bottonDeletarEditar.type = `button`
+    bottonDeletarEditar.innerText = `Editar`
+
+
+
+    // const user = {
+
+    //     "professional_level": divSelectNivel.value,
+    //     "kind_of_work": divSelectModalidadeDeTrabalho.value,
+        
+    // }
+
+
+    // console.log(user)
+
+
+    
+    bottonDeletarEditar.addEventListener("click", (e) =>{
+
+        e.preventDefault()
+
+        const user = {
+
+            "professional_level": divSelectNivel.value,
+            "kind_of_work": divSelectModalidadeDeTrabalho.value,
+            
+        }
+        console.log(user)
+        console.log("Editando")
+
+        requisicaoEditarFuncionario(user, idUser)
+        window.location.reload()
+
+    })
+
+    DivConteudoModalEditar.append(tagH1DeletarFuncionario, divSelectModalidadeDeTrabalho, divSelectNivel, bottonDeletarEditar)
+
+    openModal(DivConteudoModalEditar)
+
+
+
+}
+
+
+
+
+
+async function requisicaoEditarFuncionario(user, idUser){
+    const resposta =  await fetch(`http://localhost:6278/admin/update_user/${idUser}`,{          
+          method:"PATCH",
+          headers:{
+            "Content-Type": "application/json",
+            "Authorization" : `Bearer ${token}`
+        },
+          body: JSON.stringify(user)
+      }).then((response)=>response.json() )
+      
+      .then((response)=> {
+              
+          console.log(response)
+        //   renderDadosLogado(response)
+          
       })
       .catch(error =>{
           console.log(error)
