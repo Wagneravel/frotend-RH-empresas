@@ -142,7 +142,7 @@ function renderDivColegas(arr){
     if(arr !== null){
 
         const tagDivUl = document.createElement("div")
-
+// tem que criar mais um h1 para o nome da empresa e colocar os 2 h1 dentro da div azul
         const tagH1 = document.createElement("h1")
         tagH1.className = `tagH1C`
         tagH1.innerText = arr.description

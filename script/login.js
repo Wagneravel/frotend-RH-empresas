@@ -168,3 +168,32 @@ async function requisicao(user){
       })
       return resposta
   }  
+
+
+  //http://localhost:6278/auth/validate_user
+
+
+async function requisicaoValidar(admin){
+const resposta =  await fetch(`http://localhost:6278/auth/validate_user`,{
+        
+        method:"GET",
+        headers:{"Authorization" : `Bearer ${admin}`},
+    }).then((response)=>response.json() )
+    
+    .then((response)=> {
+            
+        console.log(response)
+        
+    
+        if(response.error){
+
+            alert(response.error)
+
+        }
+    })
+    .catch(error =>{
+        console.log(error)
+    })
+    return resposta
+}  
+requisicaoValidar()

@@ -1,0 +1,128 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.tagMain{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    
+    
+}
+
+.tagDivContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 120%;
+    border-bottom: 2px solid black;
+    padding: 10px;
+    gap: 20px;
+}
+.tagDivLogo{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    width: 500px;
+    justify-content: center;
+}
+
+.tagDivLogoCor{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgb(140, 12, 190);
+    
+}
+
+.tagDivButtons{
+   
+    display: flex;
+    align-items: center;
+    width: 360px;
+    justify-content: center;
+}
+
+.tagDivButtons > button{
+    width: 142px;
+    height: 48px;
+
+}
+
+
+.divHeaderDepart{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid rgb(216, 216, 216);
+    height: 70px;
+    margin-top: 30px;
+}
+
+.tagUlDepartos{
+    display: flex;
+    gap: 30px;
+    width: 98%;
+    height: 500px;
+    list-style: none;
+    border: 1px solid rgb(216, 216, 216);
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    padding: 20px;
+
+}
+
+.tagLiDepartos{
+    width: 200px;
+    height: 200px;
+    border: 1px solid rgb(216, 216, 216);
+
+}
+
+.tagDB{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.tagUlFuncionarios{
+    display: flex;
+    gap: 30px;
+    width: 98%;
+    height: 500px;
+    list-style: none;
+    border: 1px solid rgb(216, 216, 216);
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    padding: 20px;
+
+}
+
+.tagLiFuncionarios{
+    width: 200px;
+    height: 200px;
+    border: 1px solid rgb(216, 216, 216);
+
+}
+
+.tagFB{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.tagH1Funcionarios{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
