@@ -131,9 +131,21 @@ function renderDepartamentos(arr){
         const tagB2 = document.createElement("button")
         const tagB3 = document.createElement("button")
 
-        tagB1.innerText = `B1`
+        tagB1.innerText = `Ver`
         tagB2.innerText = `Editar`
         tagB3.innerText = `DEL`
+
+
+        tagB1.addEventListener("click", async (e) => {
+
+            e.preventDefault()
+
+            console.log("visualizando")
+
+           await conteudoModalVisualizarDepart(listaSemEmprego, element.name, element.description, element.companies.name, element.uuid)
+        })
+
+
 
         tagB2.addEventListener("click", (e) => {
 
@@ -803,3 +815,186 @@ async function requisicaoDeletarDepart(idUser){
       })
       return resposta
 } 
+
+
+
+
+
+async function requisicaoFuncionarioSemDepart(){
+    const resposta =  await fetch(`http://localhost:6278/admin/out_of_work`,{
+          
+          method:"GET",
+          headers:{"Authorization" : `Bearer ${token}`},
+      }).then((response)=>response.json() )
+      
+      .then((response)=> {
+              
+          console.log(response)
+        
+          response.forEach(element => listaSemEmprego.push(element))
+
+          if(response.error){
+  
+              alert(response.error)
+  
+          }
+      })
+      .catch(error =>{
+          console.log(error)
+      })
+      return resposta
+} 
+requisicaoFuncionarioSemDepart()
+let listaSemEmprego = []
+
+console.log(listaSemEmprego)
+
+
+async function conteudoModalVisualizarDepart(arr, a, b, c, d){
+
+    const divVisualizarDepart = document.createElement("div")
+
+    const tagH1VisualizarDepart= document.createElement("h1")
+    //`nome do Departamento`
+    tagH1VisualizarDepart.innerText = a
+
+    const divNomesxSelect = document.createElement("div")
+   
+    const divNomes = document.createElement("div")
+    const tagh2 = document.createElement("h2")
+    const tagh3 = document.createElement("h3")
+    //`descrição do depart`
+    tagh2.innerText = b
+    //`nome da empresa`
+    tagh3.innerText = c
+    
+    const divSelectButton = document.createElement("div")
+
+    const tagSelect = document.createElement("select")
+
+    tagSelect.addEventListener("change", (e) => {
+        e.preventDefault()
+        console.log(e.target.value)
+    })
+
+    arr.forEach((element) => {
+
+        const tagOpt = document.createElement("option")
+        tagOpt.className = `tagOpt`
+        tagOpt.innerText = element.username
+        tagOpt.value = element.uuid
+
+       // console.log(tagOpt.id)
+        
+       tagSelect.appendChild(tagOpt)
+
+
+    })
+
+
+    const tagButtonContratar = document.createElement("button")
+    tagButtonContratar.innerText = `Contratar`
+    tagButtonContratar.addEventListener("click", (e) => {
+
+        let userContratar = {
+            "user_uuid": tagSelect.value,
+            "department_uuid": d
+        }
+        console.log(userContratar)
+        requisicaoContratar(userContratar)
+    })
+
+
+
+    const divListarFuncionariosPorDepart = document.createElement("ul")
+
+    const retorno = await requisicaoColegasMesmoDepart()
+
+    console.log(await requisicaoColegasMesmoDepart())
+    // array.forEach((element) => {
+
+
+    //     const tagLiFuncionariosDoDepart = document.createElement("li")
+    //     tagLiFuncionariosDoDepart.className = `tagLiFuncionariosDoDepart`
+
+    //     const tagH2NomeFuncionario = document.createElement("h2")
+    //     tagH2NomeFuncionario.innerText = ``
+
+    //     const tagH4Nivel = document.createElement("h2")
+    //     tagH4Nivel.innerText = ``
+
+    //     const tagH4Compania = document.createElement("h2")
+    //     tagH4Compania.innerText = ``
+
+    //     const tagButtonDemitir = document.createElement("button")
+    //     tagButtonDemitir.innerText = `Demitir`
+
+    //     tagButtonDemitir.addEventListener("click", () => {
+    //         console.log("demitindo")
+    //     })
+
+
+    //     tagLiFuncionariosDoDepart.append(tagH2NomeFuncionario, tagH4Nivel, tagH4Compania, tagButtonDemitir)
+    //     divListarFuncionariosPorDepart.appendChild(tagLiFuncionariosDoDepart)
+    // })
+ 
+
+
+
+    divSelectButton.append(tagSelect, tagButtonContratar)
+    divNomes.append(tagh2, tagh3)
+    divNomesxSelect.append(divNomes, divSelectButton)
+    divVisualizarDepart.append(tagH1VisualizarDepart, divNomesxSelect, divListarFuncionariosPorDepart)
+
+    openModal(divVisualizarDepart)
+
+}
+
+
+async function requisicaoContratar(user){
+    const resposta =  await fetch(`http://localhost:6278/departments/hire/`,{          
+          method:"PATCH",
+          headers:{
+            "Content-Type": "application/json",
+            "Authorization" : `Bearer ${token}`
+        },
+          body: JSON.stringify(user)
+      }).then((response)=>response.json() )
+      
+      .then((response)=> {
+              
+          console.log(response)
+        //   renderDadosLogado(response)
+          
+      })
+      .catch(error =>{
+          console.log(error)
+      })
+      return resposta
+} 
+
+
+
+
+
+async function requisicaoColegasMesmoDepart(){
+    const resposta =  await fetch(`http://localhost:6278/users`,{          
+          method:"GET",
+          headers:{"Authorization" : `Bearer ${token}`},
+          //body: JSON.stringify(user)
+      }).then((response)=>response.json() )
+      
+      .then((response)=> {
+              
+          console.log(response)
+          
+          
+          
+      })
+      .catch(error =>{
+          console.log(error)
+      })
+      return resposta
+} 
+
+// requisicaoColegasMesmoDepart()
