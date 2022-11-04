@@ -172,8 +172,6 @@ function renderDepartamentos(arr){
 }
 
 
-
-
 async function requisicaoEmpresas(){
     const resposta =  await fetch(`http://localhost:6278/companies`,{
           
@@ -201,10 +199,7 @@ async function requisicaoEmpresas(){
 requisicaoEmpresas()
 
 
-
 //http://localhost:6278/departments
-
-
 
 
 async function requisicaoDepartamentos(idEmpresa){
@@ -230,9 +225,6 @@ async function requisicaoDepartamentos(idEmpresa){
       })
       return resposta
 }  
-
-
-
 
 
 function renderFuncionarios(arr){
@@ -310,7 +302,6 @@ function renderFuncionarios(arr){
 //http://localhost:6278/users
 
 
-
 async function requisicaoFuncionarios(){
     const resposta =  await fetch(`http://localhost:6278/users`,{
           
@@ -335,11 +326,6 @@ async function requisicaoFuncionarios(){
       return resposta
 }  
 requisicaoFuncionarios()
-
-
-
-
-
 
 
 //modal
@@ -374,12 +360,6 @@ function openModal(children){
     backgroudContainer.appendChild(mainContainer)
     BodyModal.appendChild(backgroudContainer)
 }
-
-
-
-
-
-
 
 
 let objEditar = []
@@ -491,9 +471,6 @@ async function requisicaoCriarDepart(user){
 } 
 
 
-
-
-
 function conteudoModalDeletarFuncionario(idUser){
 
 
@@ -528,7 +505,6 @@ function conteudoModalDeletarFuncionario(idUser){
 }
 
 
-
 async function requisicaoDeletarFuncionarios(idUser){
     const resposta =  await fetch(`http://localhost:6278/admin/delete_user/${idUser}`,{
           
@@ -553,8 +529,6 @@ async function requisicaoDeletarFuncionarios(idUser){
       })
       return resposta
 } 
-
-
 
 
 function conteudoModalEditarFuncionario(idUser){
@@ -662,9 +636,6 @@ function conteudoModalEditarFuncionario(idUser){
 }
 
 
-
-
-
 async function requisicaoEditarFuncionario(user, idUser){
     const resposta =  await fetch(`http://localhost:6278/admin/update_user/${idUser}`,{          
           method:"PATCH",
@@ -686,8 +657,6 @@ async function requisicaoEditarFuncionario(user, idUser){
       })
       return resposta
 } 
-
-
 
 
 function conteudoModalEditarDepart(idUser){
@@ -756,9 +725,6 @@ async function requisicaoEditarDepart(user, idUser){
 } 
 
 
-
-
-
 function conteudoModalDeletarDepart(idUser){
 
     const DivConteudoModalDeletar = document.createElement("div")
@@ -817,9 +783,6 @@ async function requisicaoDeletarDepart(idUser){
 } 
 
 
-
-
-
 async function requisicaoFuncionarioSemDepart(){
     const resposta =  await fetch(`http://localhost:6278/admin/out_of_work`,{
           
@@ -844,6 +807,7 @@ async function requisicaoFuncionarioSemDepart(){
       })
       return resposta
 } 
+
 requisicaoFuncionarioSemDepart()
 let listaSemEmprego = []
 
@@ -907,38 +871,44 @@ async function conteudoModalVisualizarDepart(arr, a, b, c, d){
 
 
     const divListarFuncionariosPorDepart = document.createElement("ul")
-
+    divListarFuncionariosPorDepart.className = `divListarFuncionariosPorDepart`
     const retorno = await requisicaoColegasMesmoDepart()
 
     console.log(await requisicaoColegasMesmoDepart())
-    // array.forEach((element) => {
 
+    retorno.forEach((element) => { 
+        
+        if(element.department_uuid === d){
 
-    //     const tagLiFuncionariosDoDepart = document.createElement("li")
-    //     tagLiFuncionariosDoDepart.className = `tagLiFuncionariosDoDepart`
+            console.log(element) 
 
-    //     const tagH2NomeFuncionario = document.createElement("h2")
-    //     tagH2NomeFuncionario.innerText = ``
+            const tagLiFuncionariosDoDepart = document.createElement("li")
+            tagLiFuncionariosDoDepart.className = `tagLiFuncionariosDoDepart`
 
-    //     const tagH4Nivel = document.createElement("h2")
-    //     tagH4Nivel.innerText = ``
+            const tagH2NomeFuncionario = document.createElement("h4")
+            tagH2NomeFuncionario.innerText = element.username
 
-    //     const tagH4Compania = document.createElement("h2")
-    //     tagH4Compania.innerText = ``
+            const tagH4Nivel = document.createElement("h5")
+            tagH4Nivel.innerText = element.professional_level
 
-    //     const tagButtonDemitir = document.createElement("button")
-    //     tagButtonDemitir.innerText = `Demitir`
+            const tagH4Compania = document.createElement("h5")
+            tagH4Compania.innerText = c
 
-    //     tagButtonDemitir.addEventListener("click", () => {
-    //         console.log("demitindo")
-    //     })
+            const tagButtonDemitir = document.createElement("button")
+            tagButtonDemitir.innerText = `Demitir`
 
+            tagButtonDemitir.addEventListener("click", () => {
+                    console.log("demitindo")
+                    requisicaoDemitir(element.uuid)
+                   // window.location.reload()
+            })
 
-    //     tagLiFuncionariosDoDepart.append(tagH2NomeFuncionario, tagH4Nivel, tagH4Compania, tagButtonDemitir)
-    //     divListarFuncionariosPorDepart.appendChild(tagLiFuncionariosDoDepart)
-    // })
- 
+            tagLiFuncionariosDoDepart.append(tagH2NomeFuncionario, tagH4Nivel, tagH4Compania, tagButtonDemitir)
 
+            divListarFuncionariosPorDepart.appendChild(tagLiFuncionariosDoDepart)
+            
+        }
+    })
 
 
     divSelectButton.append(tagSelect, tagButtonContratar)
@@ -974,9 +944,6 @@ async function requisicaoContratar(user){
 } 
 
 
-
-
-
 async function requisicaoColegasMesmoDepart(){
     const resposta =  await fetch(`http://localhost:6278/users`,{          
           method:"GET",
@@ -986,7 +953,7 @@ async function requisicaoColegasMesmoDepart(){
       
       .then((response)=> {
               
-          console.log(response)
+          return response
           
           
           
@@ -997,4 +964,25 @@ async function requisicaoColegasMesmoDepart(){
       return resposta
 } 
 
-// requisicaoColegasMesmoDepart()
+// http://localhost:6278/departments/dismiss/
+
+
+async function requisicaoDemitir(idUser){
+    const resposta =  await fetch(`http://localhost:6278/departments/dismiss/${idUser}`,{          
+          method:"PATCH",
+          headers:{
+            "Authorization" : `Bearer ${token}`
+        },
+        //  body: JSON.stringify(user)
+      }).then((response)=>response.json() )
+      
+      .then((response)=> {
+             console.log(response)
+             alert("Funcionario demitido com sucesso")
+                  
+      })
+      .catch(error =>{
+          console.log(error)
+      })
+      return resposta
+} 

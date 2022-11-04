@@ -206,3 +206,18 @@ p{
 .tituloModal{
     margin-bottom: 30px;
 }
+
+
+
+
+.divListarFuncionariosPorDepart{
+    display: flex;
+    overflow-x: scroll;
+    gap: 20px;
+    list-style: none;
+}
+
+.divListarFuncionariosPorDepart > li{
+
+    border: 1px solid red;
+}
