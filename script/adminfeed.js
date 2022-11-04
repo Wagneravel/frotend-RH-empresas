@@ -3,8 +3,6 @@ const tagMain = document.querySelector(".tagMain")
 const token = localStorage.getItem("token Login")
 console.log(token)
 
-
-
 function renderHeaderPage(){
     const tagDivContainer = document.createElement("div")
     tagDivContainer.className = `tagDivContainer`
@@ -63,11 +61,8 @@ function renderHeaderDepartamento(arr){
         console.log(e.target.value)
         console.log(divSelectDepart.selectedIndex)
 
-        
-
        console.log(divSelectDepart.options[divSelectDepart.selectedIndex].id)
        requisicaoDepartamentos(divSelectDepart.options[divSelectDepart.selectedIndex].id)
-        
     })
 
     const option = document.createElement("option")
@@ -90,8 +85,6 @@ function renderHeaderDepartamento(arr){
     ButtonDepart.type = `button`
     ButtonDepart.innerText = `Criar departamento`
 
-
-
     ButtonDepart.addEventListener("click", (e) => {
 
         e.preventDefault()
@@ -99,9 +92,6 @@ function renderHeaderDepartamento(arr){
         console.log(`Abrir modal editar`)
 
         conteudoModalCriar(arr)
-
-
-
 
     })
 
@@ -122,13 +112,11 @@ function renderDepartamentos(arr){
 
     tagUlDepartos.innerHTML = ``
 
-
     arr.forEach(element => {
-        
         
         const tagLiDepartos = document.createElement("li")
         tagLiDepartos.className = `tagLiDepartos`
-
+        tagLiDepartos.id = element.uuid
         const tagNomeEmpresa = document.createElement("p")
         const tagNomeDepart = document.createElement("p")
         const tagNomeDescri = document.createElement("p")
@@ -144,8 +132,22 @@ function renderDepartamentos(arr){
         const tagB3 = document.createElement("button")
 
         tagB1.innerText = `B1`
-        tagB2.innerText = `B2`
-        tagB3.innerText = `B3`
+        tagB2.innerText = `Editar`
+        tagB3.innerText = `DEL`
+
+        tagB2.addEventListener("click", (e) => {
+
+            e.preventDefault()
+
+            conteudoModalEditarDepart(element.uuid)
+        })
+
+        tagB3.addEventListener("click", (e) => {
+
+            e.preventDefault()
+
+            conteudoModalDeletarDepart(element.uuid)
+        })
 
         tagDB.append(tagB1, tagB2, tagB3)
         tagLiDepartos.append(tagNomeEmpresa, tagNomeDepart, tagNomeDescri, tagDB)
@@ -216,13 +218,6 @@ async function requisicaoDepartamentos(idEmpresa){
       })
       return resposta
 }  
-
-
-
-
-
-
-
 
 
 
@@ -673,6 +668,135 @@ async function requisicaoEditarFuncionario(user, idUser){
           console.log(response)
         //   renderDadosLogado(response)
           
+      })
+      .catch(error =>{
+          console.log(error)
+      })
+      return resposta
+} 
+
+
+
+
+function conteudoModalEditarDepart(idUser){
+
+    const DivModalEditarDepart = document.createElement("div")
+
+    const tagH1EditarDepart = document.createElement("h1")
+
+    tagH1EditarDepart.innerText = `Editar Departamento`
+
+
+    const bottonEditarDepart = document.createElement("botton")
+    bottonEditarDepart.className = `bottonDeletarFuncionario`
+    bottonEditarDepart.type = `button`
+    bottonEditarDepart.innerText = `Salvar alteração`
+    
+    const inputdescriptionModal = document.createElement("input")
+    inputdescriptionModal.className = `inputdescriptionModal`
+    inputdescriptionModal.placeholder = `valores anteriores da descrição`
+
+    bottonEditarDepart.addEventListener("click", (e) =>{
+
+        e.preventDefault()
+
+        console.log("editando depart")
+
+        console.log(inputdescriptionModal.value)
+
+
+
+        const user ={
+            "description": inputdescriptionModal.value
+          }
+          console.log(user)
+
+        requisicaoEditarDepart(user, idUser)
+        window.location.reload()
+
+    })
+
+    DivModalEditarDepart.append(tagH1EditarDepart,inputdescriptionModal, bottonEditarDepart)
+
+    openModal(DivModalEditarDepart)
+}
+
+async function requisicaoEditarDepart(user, idUser){
+    const resposta =  await fetch(`http://localhost:6278/departments/${idUser}`,{          
+          method:"PATCH",
+          headers:{
+            "Content-Type": "application/json",
+            "Authorization" : `Bearer ${token}`
+        },
+          body: JSON.stringify(user)
+      }).then((response)=>response.json() )
+      
+      .then((response)=> {
+              
+          console.log(response)
+        
+          
+      })
+      .catch(error =>{
+          console.log(error)
+      })
+      return resposta
+} 
+
+
+
+
+
+function conteudoModalDeletarDepart(idUser){
+
+    const DivConteudoModalDeletar = document.createElement("div")
+
+    const tagH1DeletarDepart = document.createElement("h1")
+
+    tagH1DeletarDepart.innerText = `Tem certeza que deseja deletar o departamento e demitir seus funcionários?`
+
+    const bottonDeletarDepart = document.createElement("botton")
+    bottonDeletarDepart.className = `bottonDeletarDepart`
+    bottonDeletarDepart.type = `button`
+    bottonDeletarDepart.innerText = `Deletar`
+    
+    bottonDeletarDepart.addEventListener("click", (e) =>{
+
+        e.preventDefault()
+
+        console.log("Deletando")
+
+        requisicaoDeletarDepart(idUser)
+
+        window.location.reload()
+
+    })
+
+    DivConteudoModalDeletar.append(tagH1DeletarDepart, bottonDeletarDepart)
+
+    openModal(DivConteudoModalDeletar)
+
+}
+
+
+async function requisicaoDeletarDepart(idUser){
+    const resposta =  await fetch(`http://localhost:6278/departments/${idUser}`,{
+          
+          method:"DELETE",
+          headers:{"Authorization" : `Bearer ${token}`},
+      }).then((response)=>response.json() )
+      
+      .then((response)=> {
+              
+          console.log(response)
+          alert(`usuário deletado com sucesso`)
+          
+        
+          if(response.error){
+  
+              alert(response.error)
+  
+          }
       })
       .catch(error =>{
           console.log(error)
