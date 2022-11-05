@@ -5,7 +5,7 @@ body{
     justify-content: center;
 }
 .tagMain{
-    width: 100%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -39,7 +39,11 @@ body{
     background-color: rgb(140, 12, 190);
     
 }
-
+.divSelectDepart{
+    text-align: center;
+    height: 30px;
+    border-radius: 16px;
+}
 .tagDivButtons{
    
     display: flex;
@@ -49,9 +53,10 @@ body{
 }
 
 .tagDivButtons > button{
-    width: 142px;
-    height: 48px;
-
+    width: 141px;
+    height: 44px;
+    color: blue;
+    border: 1px solid blue;
 }
 
 
@@ -62,13 +67,20 @@ body{
     border: 1px solid rgb(216, 216, 216);
     height: 70px;
     margin-top: 30px;
+    padding: 10px;
+}
+
+.divHeaderDepart > button{
+    background-color: blue;
+    color: white;
+    padding: 5px;
 }
 
 .tagUlDepartos{
     display: flex;
     gap: 30px;
     width: 98%;
-    height: 500px;
+    height: 350px;
     list-style: none;
     border: 1px solid rgb(216, 216, 216);
     flex-wrap: wrap;
@@ -78,10 +90,10 @@ body{
 }
 
 .tagLiDepartos{
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 170px;
     border: 1px solid rgb(216, 216, 216);
-
+    padding: 10px;
 }
 
 .tagDB{
@@ -90,6 +102,15 @@ body{
     gap: 10px;
     align-items: center;
     justify-content: center;
+}
+
+.tagDB > button{
+
+    width: 53px;
+    text-align: center;
+    background-color: blue;
+    /* padding: 5px; */
+    color: white;
 }
 
 .tagUlFuncionarios{

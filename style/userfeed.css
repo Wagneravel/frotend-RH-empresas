@@ -5,14 +5,19 @@ body{
     justify-content: center;
 }
 .tagMain{
-    width: 100%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     
 }
-
+.divH1eH12{
+    width: 98%;
+}
+.tagDivUl{
+    width: 98%;
+}
 .tagDivContainer{
     display: flex;
     justify-content: space-around;
@@ -64,7 +69,7 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 70%;
+    width: 98%;
     height: 100%;
     padding: 10px;
     border: 1px solid rgb(216, 216, 216);
@@ -90,7 +95,7 @@ body{
 .tagDivColegas{
     border: 1px solid rgb(216, 216, 216);
 
-    width: 72%;
+    width: 100%;
     height: 500px;
     display: flex;
     align-items: center;
@@ -104,12 +109,12 @@ body{
     border: 1px solid rgb(216, 216, 216);
 
     width: 100%;
-    height: 500px;
+    height: 100%;
 
 }
 
 .tagH1C{
-    width: 100%;
+    width: 102%;
     height: 40px;
     background-color: blue;
     color: white;
@@ -120,13 +125,21 @@ body{
 }
 
 .tagUlC{
-    width: 98%;
-    height: 400px;
+    width: 90%;
+    height: 500px;
     display: flex;
     flex-wrap: wrap;
     list-style: none;
     justify-content: space-between;
+    gap: 30px;
+    border: 1px solid rgb(216, 216, 216);
+    overflow-y: scroll;
+    padding: 20px;
 }
+
+
+
+
 
 .tagLiC{
     width: 238px;

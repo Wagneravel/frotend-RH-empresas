@@ -43,7 +43,7 @@ function renderHeaderPage(){
 renderHeaderPage()
 
 function renderHeaderDepartamento(arr){
-
+    console.log(arr)
     const divHeaderDepart = document.createElement("div")
     divHeaderDepart.className = `divHeaderDepart`
 
@@ -224,7 +224,7 @@ async function requisicaoDepartamentos(idEmpresa){
       })
       return resposta
 }  
-
+requisicaoDepartamentos("")
 
 function renderFuncionarios(arr){
 
