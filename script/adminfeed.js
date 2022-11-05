@@ -1,7 +1,7 @@
 const body = document.querySelector("body")
 const tagMain = document.querySelector(".tagMain")
 const token = localStorage.getItem("token Login")
-console.log(token)
+//console.log(token)
 
 function renderHeaderPage(){
     const tagDivContainer = document.createElement("div")
@@ -43,7 +43,7 @@ function renderHeaderPage(){
 renderHeaderPage()
 
 function renderHeaderDepartamento(arr){
-    console.log(arr)
+   // console.log(arr)
     const divHeaderDepart = document.createElement("div")
     divHeaderDepart.className = `divHeaderDepart`
 
@@ -110,7 +110,7 @@ divDepartos.appendChild(tagUlDepartos)
 function renderDepartamentos(arr){
 
     tagUlDepartos.innerHTML = ``
-    console.log(arr)
+    //console.log(arr)
     arr.forEach(element => {
         
         const tagLiDepartos = document.createElement("li")
@@ -150,7 +150,7 @@ function renderDepartamentos(arr){
 
             e.preventDefault()
 
-            conteudoModalEditarDepart(element.uuid)
+            conteudoModalEditarDepart(element.uuid, element.description)
         })
 
         tagB3.addEventListener("click", (e) => {
@@ -180,7 +180,7 @@ async function requisicaoEmpresas(){
       
       .then((response)=> {
               
-          console.log(response)
+          //console.log(response)
           renderHeaderDepartamento(response)
 
         
@@ -210,7 +210,7 @@ async function requisicaoDepartamentos(idEmpresa){
       
       .then((response)=> {
               
-          console.log(response)
+          //console.log(response)
           renderDepartamentos(response)
         
           if(response.error){
@@ -242,54 +242,65 @@ function renderFuncionarios(arr){
 
     arr.forEach(element => {
         
-        
-        const tagLiFuncionarios = document.createElement("li")
-        tagLiFuncionarios.className = `tagLiFuncionarios`
-        tagLiFuncionarios.id = element.uuid
+        // console.log(element)
+        if(!element.is_admin === true){
+
+            const tagLiFuncionarios = document.createElement("li")
+            tagLiFuncionarios.className = `tagLiFuncionarios`
+            tagLiFuncionarios.id = element.uuid
+    
+    
+            const tagNomeEmpresa = document.createElement("p")
+            const tagNomeDepart = document.createElement("p")
+            const tagNomeDescri = document.createElement("p")
+    
+            tagNomeEmpresa.innerText = element.username
+            tagNomeDepart.innerText = element.professional_level
+            tagNomeDescri.innerText = element.kind_of_work        
+            
+            const tagDB = document.createElement("div")
+            tagDB.className = `tagFB`
+            const tagB1 = document.createElement("button")
+            const tagB2 = document.createElement("button")
+            
+    
+            tagB1.innerText = ` Editar`
+    
+            tagB1.addEventListener("click", (e) => {
+    
+    
+                conteudoModalEditarFuncionario(element.uuid)
+    
+    
+    
+            })
+    
+    
+            tagB2.innerText = `Remover`
+    
+            tagB2.addEventListener("click", (e)=>{
+    
+                e.preventDefault()
+    
+                console.log("Modal deletar")
+    
+                // proxima função precisa de um parametro que será o id do funcionário
+                conteudoModalDeletarFuncionario(tagLiFuncionarios.id)
+    
+            })
+    
+            tagDB.append(tagB1, tagB2)
+            tagLiFuncionarios.append(tagNomeEmpresa, tagNomeDepart, tagNomeDescri, tagDB)
+            tagUlFuncionarios.appendChild(tagLiFuncionarios)
 
 
-        const tagNomeEmpresa = document.createElement("p")
-        const tagNomeDepart = document.createElement("p")
-        const tagNomeDescri = document.createElement("p")
-
-        tagNomeEmpresa.innerText = element.username
-        tagNomeDepart.innerText = element.professional_level
-        tagNomeDescri.innerText = element.kind_of_work        
-        
-        const tagDB = document.createElement("div")
-        tagDB.className = `tagFB`
-        const tagB1 = document.createElement("button")
-        const tagB2 = document.createElement("button")
-        
-
-        tagB1.innerText = ` Editar`
-
-        tagB1.addEventListener("click", (e) => {
-
-
-            conteudoModalEditarFuncionario(element.uuid)
 
 
 
-        })
 
+            
+        }
 
-        tagB2.innerText = `Remover`
-
-        tagB2.addEventListener("click", (e)=>{
-
-            e.preventDefault()
-
-            console.log("Modal deletar")
-
-            // proxima função precisa de um parametro que será o id do funcionário
-            conteudoModalDeletarFuncionario(tagLiFuncionarios.id)
-
-        })
-
-        tagDB.append(tagB1, tagB2)
-        tagLiFuncionarios.append(tagNomeEmpresa, tagNomeDepart, tagNomeDescri, tagDB)
-        tagUlFuncionarios.appendChild(tagLiFuncionarios)
     });
 
 
@@ -310,7 +321,7 @@ async function requisicaoFuncionarios(){
       
       .then((response)=> {
               
-          console.log(response)
+          //console.log(response)
           renderFuncionarios(response)
         
           if(response.error){
@@ -365,6 +376,7 @@ let objEditar = []
 function conteudoModalCriar(arr){
 
     const div = document.createElement("div")
+    div.classList = `divModalCriarD`
     const nomeModal = document.createElement("h2")
     
     
@@ -474,6 +486,7 @@ function conteudoModalDeletarFuncionario(idUser){
 
 
     const DivConteudoModalDeletar = document.createElement("div")
+    DivConteudoModalDeletar.className = `DivConteudoModalDeletar`
 
     const tagH1DeletarFuncionario = document.createElement("h1")
 
@@ -534,6 +547,7 @@ function conteudoModalEditarFuncionario(idUser){
 
 
     const DivConteudoModalEditar = document.createElement("div")
+    DivConteudoModalEditar.className = `DivConteudoModalEditar`
 
     const tagH1DeletarFuncionario = document.createElement("h1")
 
@@ -658,9 +672,10 @@ async function requisicaoEditarFuncionario(user, idUser){
 } 
 
 
-function conteudoModalEditarDepart(idUser){
+function conteudoModalEditarDepart(idUser, inputValorInicial){
 
     const DivModalEditarDepart = document.createElement("div")
+    DivModalEditarDepart.className = `DivConteudoModalEditar`
 
     const tagH1EditarDepart = document.createElement("h1")
 
@@ -674,7 +689,7 @@ function conteudoModalEditarDepart(idUser){
     
     const inputdescriptionModal = document.createElement("input")
     inputdescriptionModal.className = `inputdescriptionModal`
-    inputdescriptionModal.placeholder = `valores anteriores da descrição`
+    inputdescriptionModal.placeholder = inputValorInicial
 
     bottonEditarDepart.addEventListener("click", (e) =>{
 
@@ -727,6 +742,8 @@ async function requisicaoEditarDepart(user, idUser){
 function conteudoModalDeletarDepart(idUser){
 
     const DivConteudoModalDeletar = document.createElement("div")
+    DivConteudoModalDeletar.className = `DivConteudoModalDeletar`
+
 
     const tagH1DeletarDepart = document.createElement("h1")
 
@@ -791,7 +808,7 @@ async function requisicaoFuncionarioSemDepart(){
       
       .then((response)=> {
               
-          console.log(response)
+         // console.log(response)
         
           response.forEach(element => listaSemEmprego.push(element))
 
@@ -810,21 +827,23 @@ async function requisicaoFuncionarioSemDepart(){
 requisicaoFuncionarioSemDepart()
 let listaSemEmprego = []
 
-console.log(listaSemEmprego)
+//console.log(listaSemEmprego)
 
 
 async function conteudoModalVisualizarDepart(arr, a, b, c, d){
 
     const divVisualizarDepart = document.createElement("div")
+    divVisualizarDepart.className = `divVisualizarDepartShow`
 
     const tagH1VisualizarDepart= document.createElement("h1")
     //`nome do Departamento`
     tagH1VisualizarDepart.innerText = a
 
     const divNomesxSelect = document.createElement("div")
+    divNomesxSelect.className = `divNomesxSelectShow`
    
     const divNomes = document.createElement("div")
-    const tagh2 = document.createElement("h2")
+    const tagh2 = document.createElement("h3")
     const tagh3 = document.createElement("h3")
     //`descrição do depart`
     tagh2.innerText = b
@@ -832,6 +851,7 @@ async function conteudoModalVisualizarDepart(arr, a, b, c, d){
     tagh3.innerText = c
     
     const divSelectButton = document.createElement("div")
+    divSelectButton.className = `divSelectButtonShow`
 
     const tagSelect = document.createElement("select")
 
