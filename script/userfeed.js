@@ -1,3 +1,4 @@
+const body = document.querySelector("body")
 const tagMain = document.querySelector(".tagMain")
 const token = localStorage.getItem("token Login")
 console.log(token)
@@ -36,7 +37,7 @@ function renderHeader(){
     tagDivButtons.append(tagButtonLogin)
     tagDivContainer.append(tagDivLogo, tagDivButtons)
 
-    tagMain.appendChild(tagDivContainer)
+    body.prepend(tagDivContainer)
 }
 renderHeader()
 
@@ -68,7 +69,7 @@ function renderDadosLogado(arr){
 
         tagPondeTrabalha.innerText = arr.kind_of_work
     }else{
-        tagPondeTrabalha.innerText = `Desempregado`
+        tagPondeTrabalha.innerText = ``
     }
     
 
@@ -83,19 +84,12 @@ function renderDadosLogado(arr){
         conteudoModalEditar()
     })
 
-    
-
-
-
     tagDivDentro.append(tagPemail, tagPnivel, tagPondeTrabalha)
     tagDivNome.append(tagH1, tagDivDentro)
     tagDivButton.appendChild(tagButtonEditar)
     tagDivContainer2.append(tagDivNome, tagDivButton)
     tagMain.appendChild(tagDivContainer2)
-
 }
-
-
 
 
 async function requisicao(){
@@ -107,13 +101,12 @@ async function requisicao(){
       
       .then((response)=> {
               
-          console.log(response)
+          //console.log(response)
           renderDadosLogado(response)
         
           if(response.error){
   
               alert(response.error)
-  
           }
       })
       .catch(error =>{
@@ -122,7 +115,6 @@ async function requisicao(){
       return resposta
 }  
 requisicao()
-
 
 
 //http://localhost:6278/users/departments/coworkers
@@ -145,35 +137,47 @@ function renderDivColegas(arr){
 
         const divH1eH12 = document.createElement("div")
         divH1eH12.className = `divH1eH12`
-        const tagH12 = document.createElement("h1")
-        tagH12.className = `tagH12`
-        tagH1.innerText = arr.description
+
+        
         const tagH1 = document.createElement("h1")
         tagH1.className = `tagH1C`
-        tagH1.innerText = arr.description
-        divH1eH12.append(tagH1, tagH12)
+        
+
+        divH1eH12.append(tagH1)
+
+
         const tagUl = document.createElement("ul")
         tagUl.className = `tagUlC`
 
         arr.forEach(element => {
+
+            tagH1.innerText = `${element.name} --- ${element.description}`
             
-            const tagLi = document.createElement("li")
-            tagLi.className = `tagLiC`
+            const eu = element.users
 
-            const tagNome = document.createElement("h2")
-            const tagNivel = document.createElement("p")
+            eu.forEach(ele => {
+                const tagLi = document.createElement("li")
+                tagLi.className = `tagLiC`
+    
+                const tagNome = document.createElement("h2")
+                const tagNivel = document.createElement("p")
+    
+                tagNome.innerText = ele.username
+                tagNivel.innerText = ele.professional_level
+    
+                tagLi.append(tagNome, tagNivel)
 
-            tagNome.innerText = element.users.username
-            tagNivel.innerText = element.users.professional_level
+                tagUl.appendChild(tagLi)
 
-            tagLi.append(tagNome, tagNivel)
-            tagUl.appendChild(tagLi)
+            })
+           
+            
             tagDivUl.append(divH1eH12, tagUl)
             tagMain.append(tagDivUl)
         });
     }
 }
-
+//http://localhost:6278/users/departments/coworkers
 async function requisicaoColegas(){
     const resposta =  await fetch(`http://localhost:6278/users/departments/coworkers`,{          
           method:"GET",
@@ -197,15 +201,6 @@ async function requisicaoColegas(){
 requisicaoColegas()
 
 
-
-
-
-
-
-
-
-
-
 const BodyModal = document.querySelector("body")
 
 function openModal(children){
@@ -223,7 +218,7 @@ function openModal(children){
     closeModalButton.addEventListener("click", (e) =>{
 
         const {className} = (e.target)
-        console.log(className)
+        //console.log(className)
         
         if(className === "modal-background" || className === "modal-close"){
 
@@ -254,6 +249,7 @@ function conteudoModalEditar(){
     inputSenha.placeholder = `Sua Senha`
 
     const tagButton = document.createElement("button")
+    tagButton.className = `tagButtonEditar`
     tagButton.type = "button"
     tagButton.innerText = "Salvar Alterações"
 
@@ -266,28 +262,19 @@ function conteudoModalEditar(){
             "username": inputNome.value,
             "password": inputSenha.value,
             "email": inputEmail.value
-
         }
         
-        console.log(objEditar)
+        //console.log(objEditar)
         requisicaoEditar(objEditar)
         window.location.reload()
-        
     })
-    
-
 
     nomeModal.innerText = "Editar Perfil"
-    
-
    
     div.append(nomeModal, inputNome, inputEmail, inputSenha, tagButton)
 
     openModal(div)
 }
-
-
-
 
 async function requisicaoEditar(user){
     const resposta =  await fetch(`http://localhost:6278/users`,{          
@@ -301,7 +288,7 @@ async function requisicaoEditar(user){
       
       .then((response)=> {
               
-          console.log(response)
+          //console.log(response)
           renderDadosLogado(response)
           
       })

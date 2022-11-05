@@ -9,16 +9,15 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-
-    
+    align-items: center;
     
 }
 
 .tagDivContainer{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    width: 100%;
+    width: 98%;
     height: 120%;
     border-bottom: 2px solid black;
     padding: 10px;
@@ -26,9 +25,9 @@ body{
 }
 .tagDivLogo{
     display: flex;
-    gap: 15px;
+    
     align-items: center;
-    width: 500px;
+    /* width: 500px; */
     justify-content: center;
 }
 
@@ -44,23 +43,30 @@ body{
    
     display: flex;
     align-items: center;
-    width: 360px;
+    /* width: 360px; */
     justify-content: center;
 }
 
 .tagDivButtons > button{
-    width: 142px;
-    height: 48px;
+    
+    width: 146px;
+    height: 40px;
+    border: 2px solid rgb(159 159 245);
+    background-color: white;
+    color: rgb(20 20 216);
+    font-size: 20px;
+    
 
 }
 
 .tagDivContainer2{
-    margin-top: 60px;
+    margin-top: 30px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 70%;
     height: 100%;
+    padding: 10px;
     border: 1px solid rgb(216, 216, 216);
     
     /* margin-left: 120px;
@@ -84,7 +90,7 @@ body{
 .tagDivColegas{
     border: 1px solid rgb(216, 216, 216);
 
-    width: 100%;
+    width: 72%;
     height: 500px;
     display: flex;
     align-items: center;
@@ -118,21 +124,18 @@ body{
     height: 400px;
     display: flex;
     flex-wrap: wrap;
+    list-style: none;
+    justify-content: space-between;
 }
 
 .tagLiC{
-    width: 120px;
-    height: 80px;
+    width: 238px;
+    height: 200px;
+    padding: 10px;
     border: 1px solid rgb(216, 216, 216);
 
 
 }
-
-
-
-
-
-
 
 
 .modal-background{
@@ -169,8 +172,6 @@ body{
     
 }    
 
-   
-
 .inputTitulo{
     width: 90%;
     height: 40px;
@@ -198,4 +199,25 @@ p{
 
 .tituloModal{
     margin-bottom: 30px;
+}
+
+
+h2{
+   font-size: 40px;
+   font-weight: 600;
+}
+
+input{
+    width: 90%;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+.tagButtonEditar{
+    width: 92%;
+    height: 30px;
+    background-color: blue;
+    color: white;
+    
+
 }

@@ -126,7 +126,7 @@ function renderFormCadastro(){
 
             requisicao(objCadastro)
 
-            window.location.assign("./login.html")
+            // window.location.assign("./login.html")
 
 
         }
@@ -160,7 +160,7 @@ async function requisicao(user){
     .then((response)=> {
             
         console.log(response)
-
+        
         if(response.error){
 
             alert(response.error)
@@ -168,6 +168,7 @@ async function requisicao(user){
         }else{
         
              alert(`Cadastro confirmado com sucesso!`)
+             window.location.assign("./login.html")
         }
     })
     .catch(error =>{
