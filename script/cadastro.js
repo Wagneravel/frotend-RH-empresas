@@ -84,7 +84,7 @@ function renderFormCadastro(){
     inputSenha.type = `password`
 
     const inputSelect = document.createElement("select")
-    
+    inputSelect.className = `inputSelect`
 
     const nivel = document.createElement("option")
     nivel.innerText = `Nível profissional`
@@ -142,8 +142,8 @@ function renderFormCadastro(){
     })
 
     inputSelect.append(nivel, optionEstagio, optionBasico, optionMedio, optionAvancado)
-    tagForm.append(inputNome, inputEmail, inputSenha, inputSelect, buttonCadastrar, buttonVoltar)
-    divContainer.append(tagH1, tagForm)
+    tagForm.append(tagH1, inputNome, inputEmail, inputSenha, inputSelect, buttonCadastrar, buttonVoltar)
+    divContainer.append(tagForm)
     tagMain.appendChild(divContainer)
 }
 renderFormCadastro()

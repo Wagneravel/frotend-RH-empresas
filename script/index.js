@@ -153,7 +153,7 @@ tagDivSelect.addEventListener("change", (e) => {
             
 
             renderBodyHome(element.name, element.opening_hours, element.sectors.description)
-        }else if(result === `Select options`){
+        }else if(result === `Selecionar setor`){
 
             renderBodyHome(element.name, element.opening_hours, element.sectors.description)
         }
@@ -166,7 +166,7 @@ tagDivSelect.addEventListener("change", (e) => {
 
 
 const option = document.createElement("option")
-option.innerText = `Select options`
+option.innerText = `Selecionar setor`
 
 function selectOpt(arr){
 
@@ -184,7 +184,7 @@ function selectOpt(arr){
     })
 }
 
-tagDivSelect.innerText = `Select Options`
+tagDivSelect.innerText = `Selecionar setor`
 tagDivSelect.appendChild(option)
 const tagUl = document.createElement("ul")
 tagUl.className = `tagUl`
@@ -206,7 +206,7 @@ function renderBodyHome(a, b, c){
     divSetor.className = `divSetor`
 
     nomeEmpresa.innerText = a
-    horasDeTrabalho.innerText = b
+    horasDeTrabalho.innerText = `${b} horas`
     divSetor.innerText = c
 
 

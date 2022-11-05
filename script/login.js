@@ -53,7 +53,7 @@ function renderHeader(){
     tagDivButtons.append(tagButtonLogin, tagButtonHome)
     tagDivContainer.append(tagDivLogo, tagDivButtons)
 
-    tagMain.appendChild(tagDivContainer)
+    tagMain.append(tagDivContainer)
 }
 renderHeader()
 
@@ -66,7 +66,7 @@ function renderFormCadastro(){
     divContainer.className = `divContainer`
 
     const tagH1 = document.createElement("h1")
-    tagH1.innerText = `Fazer Login`
+    tagH1.innerText = `Login`
 
     const tagP = document.createElement("p")
     tagP.innerText = `Preencha os campos para realizar login`
@@ -121,9 +121,9 @@ function renderFormCadastro(){
         window.location.assign("./cadastro.html")
     })
    
-    tagForm.append(inputEmail, inputSenha, buttonLogin, tagPou, buttonVoltar)
-    divContainer.append(tagH1, tagP, tagForm)
-    tagMain.appendChild(divContainer)
+    tagForm.append(tagH1, tagP, inputEmail, inputSenha, buttonLogin, tagPou, buttonVoltar)
+    divContainer.append(tagForm)
+    tagMain.append(divContainer)
 }
 renderFormCadastro()
 

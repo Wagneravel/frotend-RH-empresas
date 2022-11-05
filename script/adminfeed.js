@@ -42,7 +42,6 @@ function renderHeaderPage(){
 }
 renderHeaderPage()
 
-
 function renderHeaderDepartamento(arr){
 
     const divHeaderDepart = document.createElement("div")
@@ -111,7 +110,7 @@ divDepartos.appendChild(tagUlDepartos)
 function renderDepartamentos(arr){
 
     tagUlDepartos.innerHTML = ``
-
+    console.log(arr)
     arr.forEach(element => {
         
         const tagLiDepartos = document.createElement("li")
@@ -866,6 +865,10 @@ async function conteudoModalVisualizarDepart(arr, a, b, c, d){
         }
         console.log(userContratar)
         requisicaoContratar(userContratar)
+
+
+
+        
     })
 
 
@@ -897,10 +900,47 @@ async function conteudoModalVisualizarDepart(arr, a, b, c, d){
             const tagButtonDemitir = document.createElement("button")
             tagButtonDemitir.innerText = `Demitir`
 
-            tagButtonDemitir.addEventListener("click", () => {
+            tagButtonDemitir.addEventListener("click", async () => {
                     console.log("demitindo")
-                    requisicaoDemitir(element.uuid)
-                   // window.location.reload()
+                    await requisicaoDemitir(element.uuid)
+
+                    const ul = document.querySelector(".divListarFuncionariosPorDepart")
+                    ul.innerHTML = ``
+                    const retorno = await requisicaoColegasMesmoDepart()
+                    console.log(retorno)
+                    retorno.forEach(ele => {
+
+                        if(ele.department_uuid === d){
+
+                            console.log(ele) 
+                
+                            const tagLiFuncionariosDoDepart = document.createElement("li")
+                            tagLiFuncionariosDoDepart.className = `tagLiFuncionariosDoDepart`
+                
+                            const tagH2NomeFuncionario = document.createElement("h4")
+                            tagH2NomeFuncionario.innerText = ele.username
+                
+                            const tagH4Nivel = document.createElement("h5")
+                            tagH4Nivel.innerText = ele.professional_level
+                
+                            const tagH4Compania = document.createElement("h5")
+                            tagH4Compania.innerText = c
+                
+                            const tagButtonDemitir = document.createElement("button")
+                            tagButtonDemitir.innerText = `Demitir`
+                
+                          
+                
+                            tagLiFuncionariosDoDepart.append(tagH2NomeFuncionario, tagH4Nivel, tagH4Compania, tagButtonDemitir)
+                
+                            ul.appendChild(tagLiFuncionariosDoDepart)
+                            
+                        }
+
+
+
+                    })
+
             })
 
             tagLiFuncionariosDoDepart.append(tagH2NomeFuncionario, tagH4Nivel, tagH4Compania, tagButtonDemitir)
@@ -978,7 +1018,7 @@ async function requisicaoDemitir(idUser){
       
       .then((response)=> {
              console.log(response)
-             alert("Funcionario demitido com sucesso")
+             
                   
       })
       .catch(error =>{
