@@ -1,7 +1,6 @@
 const body = document.querySelector("body")
 const tagMain = document.querySelector(".tagMain")
 const token = localStorage.getItem("token Login")
-//console.log(token)
 
 function renderHeaderPage(){
     const tagDivContainer = document.createElement("div")
@@ -198,8 +197,6 @@ async function requisicaoEmpresas(){
 requisicaoEmpresas()
 
 
-//http://localhost:6278/departments
-
 
 async function requisicaoDepartamentos(idEmpresa){
     const resposta =  await fetch(`http://localhost:6278/departments/${idEmpresa}`,{
@@ -309,8 +306,6 @@ function renderFuncionarios(arr){
     
 }
 
-//http://localhost:6278/users
-
 
 async function requisicaoFuncionarios(){
     const resposta =  await fetch(`http://localhost:6278/users`,{
@@ -337,9 +332,7 @@ async function requisicaoFuncionarios(){
 }  
 requisicaoFuncionarios()
 
-
 //modal
-
 const BodyModal = document.querySelector("body")
 
 function openModal(children){
@@ -363,6 +356,8 @@ function openModal(children){
 
             backgroudContainer.remove()
         }
+
+        window.location.reload()
     })
 
     mainContainer.appendChild(closeModalButton)
@@ -636,7 +631,7 @@ function conteudoModalEditarFuncionario(idUser){
         console.log("Editando")
 
         requisicaoEditarFuncionario(user, idUser)
-        window.location.reload()
+        //window.location.reload()
 
     })
 
@@ -827,8 +822,6 @@ async function requisicaoFuncionarioSemDepart(){
 requisicaoFuncionarioSemDepart()
 let listaSemEmprego = []
 
-//console.log(listaSemEmprego)
-
 
 async function conteudoModalVisualizarDepart(arr, a, b, c, d){
 
@@ -949,8 +942,11 @@ async function conteudoModalVisualizarDepart(arr, a, b, c, d){
                             const tagButtonDemitir = document.createElement("button")
                             tagButtonDemitir.innerText = `Demitir`
                 
+                            tagButtonDemitir.addEventListener("click", async () => {
+                                console.log("demitindo")
+                                await requisicaoDemitir(ele.uuid)
                           
-                
+                            })
                             tagLiFuncionariosDoDepart.append(tagH2NomeFuncionario, tagH4Nivel, tagH4Compania, tagButtonDemitir)
                 
                             ul.appendChild(tagLiFuncionariosDoDepart)
@@ -995,7 +991,7 @@ async function requisicaoContratar(user){
               
           console.log(response)
         //   renderDadosLogado(response)
-          
+        
       })
       .catch(error =>{
           console.log(error)
@@ -1024,8 +1020,6 @@ async function requisicaoColegasMesmoDepart(){
       return resposta
 } 
 
-// http://localhost:6278/departments/dismiss/
-
 
 async function requisicaoDemitir(idUser){
     const resposta =  await fetch(`http://localhost:6278/departments/dismiss/${idUser}`,{          
@@ -1046,3 +1040,4 @@ async function requisicaoDemitir(idUser){
       })
       return resposta
 } 
+

@@ -116,11 +116,6 @@ requisicao()
 
 
 
-
-
-
-
-
 const tagDivContainerBody = document.createElement("div")
 tagDivContainerBody.className = `tagDivContainerBody`
 
@@ -129,7 +124,7 @@ tagDivImg.className = `tagDivImg`
 
 const tagImg = document.createElement("img")
 tagImg.className = `tagImg`
-tagImg.src = `https://vemvoar.voeazul.com.br/wp-content/uploads/2018/07/regras-de-etiqueta-5-formas-de-se-portar-em-uma-reuniao-de-negocios.jpeg`
+
  
 
 const tagDivMobile = document.createElement("div")

@@ -6,6 +6,7 @@ body{
 }
 .tagMain{
     width: 96%;
+    
 }
 
 .tagDivContainer{
@@ -153,6 +154,7 @@ option{
         display: flex;
         width: 500px;
         height: 700px;
+        background-image: url(../img/IMG-20221105-WA0049.jpg);
     }
 
 
